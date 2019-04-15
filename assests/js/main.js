@@ -36,3 +36,16 @@ function Book(bookAuthor, bookTitle, bookPages, bookRead) {
     read = bookRead;
   };
 }
+
+var util = {
+  store: function(namespace, data) {
+    if (arguments.length > 1) {
+      console.log("hello good people");
+      return localStorage.setItem(namespace, JSON.stringify(data));
+    } else {
+      console.log("hello all");
+      var store = localStorage.getItem(namespace);
+      return (store && JSON.parse(store)) || [];
+    }
+  }
+};
