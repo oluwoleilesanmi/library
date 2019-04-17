@@ -37,5 +37,32 @@ var util = {
       var store = localStorage.getItem(namespace);
       return (store && JSON.parse(store)) || [];
     }
+  },
+  input: function() {
+    document.addEventListener("DOMContentLoaded", function() {
+      var input_text_input = document.getElementsByClassName("input-text-input");
+      for (var i = 0; i < input_text_input.length; i++) {
+        if (input_text_input[i].value.length) {
+          input_text_input[i].classList.add("has-value");
+          input_text_input[i].classList.add("no-transition");
+        }
+      }
+    });
+  },
+  inputHelper: function() {
+    document.addEventListener("keyup", function() {
+      var input_text_input = document.getElementsByClassName("input-text-input");
+      for (var i = 0; i < input_text_input.length; i++) {
+        if (input_text_input[i].value.length) {
+          input_text_input[i].classList.add("has-value");
+        } else {
+          input_text_input[i].classList.remove("has-value");
+          input_text_input[i].classList.remove("no-transition");
+        }
+      }
+    });
   }
 };
+
+util.inputHelper()
+
