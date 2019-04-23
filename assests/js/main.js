@@ -38,7 +38,7 @@ var util = {
       return (store && JSON.parse(store)) || [];
     }
   },
-  input: function() {
+  formHelperOnLoad: function() {
     document.addEventListener("DOMContentLoaded", function() {
       var input_text_input = document.getElementsByClassName("input-text-input");
       for (var i = 0; i < input_text_input.length; i++) {
@@ -49,7 +49,7 @@ var util = {
       }
     });
   },
-  inputHelper: function() {
+  formHelper: function() {
     document.addEventListener("keyup", function() {
       var input_text_input = document.getElementsByClassName("input-text-input");
       for (var i = 0; i < input_text_input.length; i++) {
@@ -63,6 +63,4 @@ var util = {
     });
   }
 };
-
-util.inputHelper()
 
