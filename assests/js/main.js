@@ -53,7 +53,12 @@ var util = {
 };
 
 let App = {
-    
+  init: function () {
+    this.books = util.store('books');
+    this.bindOnDomClicked();
+    this.bindOnDomLoaded();
+    this.bindOnWindowLoaded(); 
+  },    
   bindOnDomLoaded: function() {
     document.addEventListener("DOMContentLoaded", this.eventHelperOnLoad.bind(this))
   },
@@ -94,7 +99,7 @@ let App = {
     pages = document.getElementById('input-row-pages').getElementsByClassName('input-text-input');
     book.setAuthor(author[index].value); book.setTitle(title[index].value); 
     book.setPage(pages[index].value); book.setId(util.uuid());
-		this.books.push(book);
+    this.books.push(book);
     this.render();
   },
   createBook: function(book) {
@@ -138,5 +143,5 @@ let App = {
     App.bindDelEvent(); 
   }   
 };
-
+App.init();
 
