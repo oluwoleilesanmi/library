@@ -1,8 +1,8 @@
-function Book(bookAuthor, bookTitle, bookPages, bookRead) {
+function Book(bookAuthor, bookTitle, bookPages) {
+  let id = 0;
   let author = bookAuthor;
   let title = bookTitle;
   let page = bookPages;
-  let read = bookRead;
   this.getAuthor = function() {
     return author;
   };
@@ -21,11 +21,11 @@ function Book(bookAuthor, bookTitle, bookPages, bookRead) {
   this.setPage = function(bookPages) {
     page = bookPages;
   };
-  this.getRead = function() {
-    return read;
+  this.getId = function() {
+    return id;
   };
-  this.setRead = function(bookRead) {
-    read = bookRead;
+  this.setId = function(bookid) {
+    id = bookid;
   };
 }
 
