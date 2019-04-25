@@ -135,6 +135,7 @@ let App = {
       htmlList += this.createBook(book);
     }, this);
     document.getElementById('book-list').innerHTML = htmlList;
+    App.bindDelEvent(); 
   }   
 };
 
