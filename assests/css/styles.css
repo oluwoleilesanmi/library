@@ -1,3 +1,15 @@
+#input-row-author,
+#input-row-name, 
+#input-row-pages,
+.input-row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#book-list li{
+  list-style-type: none;
+}
+
 body {
   font-family: "arial", sans-serif;
   color: #3a3a3a;
@@ -5,6 +17,7 @@ body {
   margin: 0;
   background: rgb(242, 243, 247);
 }
+
 .book-form {
   background: #fff;
   padding: 15px;
@@ -17,14 +30,12 @@ body {
   font-size: 22px;
   margin-top: 5px;
 }
-.account-type {
-  color: #b1b1b1;
-  margin-bottom: 5px;
+
+.button-container {
+    margin: 40px 0 30px;
+    text-align: center;
 }
-.input-row {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+
 .button {
   border-radius: 3px;
   border: none;
@@ -35,16 +46,18 @@ body {
   background: #57b72a;
   color: #fff;
 }
+
 .button:hover {
   background: #62cc31;
 }
+
 .button:active {
   position: relative;
   top: 1px;
   box-shadow: 0px 0px 2px #365627;
 }
 
-.input-text {
+.input-text{
   height: 48px;
   width: 100%;
   font-size: 16px;
