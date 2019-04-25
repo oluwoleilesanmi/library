@@ -7,26 +7,14 @@ function Book(id, author, title, pages) {
 Book.prototype.getAuthor = function () {
    return this.author;
 }
-Book.prototype.setAuthor = function(author) {
-    this.author = author;
-}
 Book.prototype.getTitle = function() {
     return this.title;
-}
-Book.prototype.setTitle = function(title) {
-    this.title = title;
 }
 Book.prototype.getPage = function() {
     return this.pages;
 }
-Book.prototype.setPage = function(pages) {
-    this.pages = pages;
-}
 Book.prototype.getId = function() {
     return this.id;
-}
-Book.prototype.setId = function(id) {
-    this.id = id;
 }
 
 var util = {
@@ -69,6 +57,9 @@ let App = {
     window.onload = function(){
       document.querySelector(".button")
         .addEventListener("click", App.renderNewBook.bind(App));
+      App.title = document.getElementById('input-row-author').getElementsByClassName('input-text-input');
+      App.author = document.getElementById('input-row-name').getElementsByClassName('input-text-input');
+      App.pages = document.getElementById('input-row-pages').getElementsByClassName('input-text-input');  
     } 
   },
   eventHelperOnLoad: function() {
@@ -92,15 +83,13 @@ let App = {
     });
   },
   renderNewBook: function () {
-    let book, title, author, pages, index = 0;
-    book = new Book();
-    title = document.getElementById('input-row-author').getElementsByClassName('input-text-input');
-    author = document.getElementById('input-row-name').getElementsByClassName('input-text-input');
-    pages = document.getElementById('input-row-pages').getElementsByClassName('input-text-input');
-    book.setAuthor(author[index].value); book.setTitle(title[index].value); 
-    book.setPage(pages[index].value); book.setId(util.uuid());
-    this.books.push(book);
+    this.addBookToLibrary(util.uuid(), this.title, this.author, this.pages);
     this.render();
+  },
+  addBookToLibrary: function(id, title, author, pages){
+    let index = 0, 
+        book = new Book(id, title[index].value, author[index].value, pages[index].value);
+    this.books.push(book);
   },
   createBook: function(book) {
     let bookhtml = '' +
