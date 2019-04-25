@@ -84,7 +84,18 @@ let App = {
         input.classList.remove("no-transition");
       }
     });
-  }
+  },
+  renderNewBook: function () {
+    let book, title, author, pages, index = 0;
+    book = new Book();
+    title = document.getElementById('input-row-author').getElementsByClassName('input-text-input');
+    author = document.getElementById('input-row-name').getElementsByClassName('input-text-input');
+    pages = document.getElementById('input-row-pages').getElementsByClassName('input-text-input');
+    book.setAuthor(author[index].value); book.setTitle(title[index].value); 
+    book.setPage(pages[index].value); book.setId(util.uuid());
+		this.books.push(book);
+    this.render();
+  },
   createBook: function(book) {
     let bookhtml = '' +
         '<li class="book" book-id="' + book.getId() + '">' +
