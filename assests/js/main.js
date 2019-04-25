@@ -1,32 +1,32 @@
-function Book(bookAuthor, bookTitle, bookPages) {
-  let id = 0;
-  let author = bookAuthor;
-  let title = bookTitle;
-  let page = bookPages;
-  this.getAuthor = function() {
-    return author;
-  };
-  this.setAuthor = function(bookAuthor) {
-    author = bookAuthor;
-  };
-  this.getTitle = function() {
-    return title;
-  };
-  this.setTitle = function(bookTitle) {
-    title = bookTitle;
-  };
-  this.getPage = function() {
-    return page;
-  };
-  this.setPage = function(bookPages) {
-    page = bookPages;
-  };
-  this.getId = function() {
-    return id;
-  };
-  this.setId = function(bookid) {
-    id = bookid;
-  };
+function Book(id, author, title, pages) {
+  this.id = id;
+  this.author = author;
+  this.title = title;
+  this.pages = pages;
+}
+Book.prototype.getAuthor = function () {
+   return this.author;
+}
+Book.prototype.setAuthor = function(author) {
+    this.author = author;
+}
+Book.prototype.getTitle = function() {
+    return this.title;
+}
+Book.prototype.setTitle = function(title) {
+    this.title = title;
+}
+Book.prototype.getPage = function() {
+    return this.pages;
+}
+Book.prototype.setPage = function(pages) {
+    this.pages = pages;
+}
+Book.prototype.getId = function() {
+    return this.id;
+}
+Book.prototype.setId = function(id) {
+    this.id = id;
 }
 
 var util = {
