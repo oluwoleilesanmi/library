@@ -93,6 +93,30 @@ let App = {
         '</li>';
     return bookhtml;
   },
+  findBook: function(e) {
+    let thisbook,
+        id = e.target.parentNode.getAttribute('book-id');
+    this.books.forEach(function(book){
+      if (book.getId() === id) {
+        thisbook = book;
+      }
+    });
+    return thisbook;
+  },
+  deleteBook: function(e) {
+    let task = this.findBook(e),
+        taskIndex = this.books.indexOf(task);
+    this.books.splice(taskIndex, 1);
+    this.render();
+  },
+  bindDelEvent: function(){
+    if(document.getElementsByClassName("book-del")){
+      let arrButtons = document.getElementsByClassName("book-del");
+      Array.from(arrButtons).forEach(delButton => {
+        delButton.addEventListener('click', App.deleteBook.bind(App));
+      });
+    }
+  },
   render: function() {
     let htmlList = ' ';
     this.books.forEach(function(book) {
