@@ -62,7 +62,8 @@ let App = {
   },
   bindOnWindowLoaded: function () {
     window.onload = function(){
-     
+      document.querySelector(".button")
+        .addEventListener("click", App.renderNewBook.bind(App));
     } 
   },
   eventHelperOnLoad: function() {
