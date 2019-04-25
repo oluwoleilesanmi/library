@@ -85,6 +85,14 @@ let App = {
       }
     });
   }
+  createBook: function(book) {
+    let bookhtml = '' +
+        '<li class="book" book-id="' + book.getId() + '">' +
+          book.getAuthor() + book.getTitle()+ book.getPage() +
+          '<button class="book-del">-</button>' +
+        '</li>';
+    return bookhtml;
+  },
 };
 
 
