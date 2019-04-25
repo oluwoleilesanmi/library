@@ -93,6 +93,13 @@ let App = {
         '</li>';
     return bookhtml;
   },
+  render: function() {
+    let htmlList = ' ';
+    this.books.forEach(function(book) {
+      htmlList += this.createBook(book);
+    }, this);
+    document.getElementById('book-list').innerHTML = htmlList;
+  }   
 };
 
 
