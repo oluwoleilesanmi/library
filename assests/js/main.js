@@ -53,6 +53,18 @@ var util = {
 };
 
 let App = {
+    
+  bindOnDomLoaded: function() {
+    document.addEventListener("DOMContentLoaded", this.eventHelperOnLoad.bind(this))
+  },
+  bindOnDomClicked: function() {
+    document.addEventListener("click", this.eventHelper.bind(this))
+  },
+  bindOnWindowLoaded: function () {
+    window.onload = function(){
+     
+    } 
+  },
   eventHelperOnLoad: function() {
     let textInput = document.getElementsByClassName("input-text-input");
     Array.from(textInput).forEach(input => {
