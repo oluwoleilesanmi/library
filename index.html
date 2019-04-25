@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library</title>
     <link rel="stylesheet" type="text/css" href="./assests/css/styles.css" />
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.css"/>
     <script type="text/javascript" src="./assests/js/main.js"></script>
   </head>
   <body>
     <div class="book-form">
       <div class="form-title">Enter a book</div>
-      <div class="input-row">
+      <div id="input-row-author">
         <div class="input-text input-row">
           <input class="input-text-input" type="text" value="oluwole & fred"/>
           <label class="input-text-label">Author</label>
@@ -20,7 +19,7 @@
           <div class="input-text-line-focus"></div>
         </div>
       </div>
-      <div class="input-row">
+      <div id="input-row-name">
         <div class="input-text">
           <input class="input-text-input" type="text" />
           <label class="input-text-label">Title</label>
@@ -29,7 +28,7 @@
           <div class="input-text-line-focus"></div>
           </div>
       </div>
-      <div class="input-row">
+      <div id="input-row-pages">
         <div class="input-text">
           <input class="input-text-input" type="number" value="0"/>
           <label class="input-text-label">Page Count</label>
@@ -38,10 +37,13 @@
           <div class="input-text-line-focus"></div>
         </div>
       </div>
-      <button class="button">Save Book</button>
-      <section id="main">
-        <ul id="book-list"></ul>
-      </section>
+      <p class="button-container">
+        <a class="button">Store Book!</a>
+      </p>
     </div>
+    <section>
+        <ul id="book-list"></ul>
+    </section>
   </body>
 </html>
+
