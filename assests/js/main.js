@@ -46,33 +46,33 @@ var util = {
     if (arguments.length > 1) {
       return localStorage.setItem(namespace, JSON.stringify(data));
     } else {
-      var store = localStorage.getItem(namespace);
+      let store = localStorage.getItem(namespace);
       return (store && JSON.parse(store)) || [];
     }
-  },
-  formHelperOnLoad: function() {
-    document.addEventListener("DOMContentLoaded", function() {
-      var input_text_input = document.getElementsByClassName("input-text-input");
-      for (var i = 0; i < input_text_input.length; i++) {
-        if (input_text_input[i].value.length) {
-          input_text_input[i].classList.add("has-value");
-          input_text_input[i].classList.add("no-transition");
-        }
+  }
+};
+
+let App = {
+  eventHelperOnLoad: function() {
+    let textInput = document.getElementsByClassName("input-text-input");
+    Array.from(textInput).forEach(input => {
+      if (input.value.length) {
+        input.classList.add("has-value");
+        input.classList.add("no-transition");
       }
     });
   },
-  formHelper: function() {
-    document.addEventListener("keyup", function() {
-      var input_text_input = document.getElementsByClassName("input-text-input");
-      for (var i = 0; i < input_text_input.length; i++) {
-        if (input_text_input[i].value.length) {
-          input_text_input[i].classList.add("has-value");
-        } else {
-          input_text_input[i].classList.remove("has-value");
-          input_text_input[i].classList.remove("no-transition");
-        }
+  eventHelper: function() {
+    let textInput = document.getElementsByClassName("input-text-input");
+    Array.from(textInput).forEach(input => {
+      if (input.value.length) {
+        input.classList.add("has-value");
+      } else {
+        input.classList.remove("has-value");
+        input.classList.remove("no-transition");
       }
     });
   }
 };
+
 
