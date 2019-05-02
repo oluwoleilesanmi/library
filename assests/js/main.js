@@ -43,15 +43,32 @@ var util = {
 let App = {
   init: function () {
     this.books = util.store('books');
-    this.bindOnDomClicked();
     this.bindOnDomLoaded();
-    this.bindOnWindowLoaded(); 
-  },    
-  bindOnDomLoaded: function() {
-    document.addEventListener("DOMContentLoaded", this.eventHelperOnLoad.bind(this))
+    this.bindOnWindowLoaded();  
   },
-  bindOnDomClicked: function() {
-    document.addEventListener("click", this.eventHelper.bind(this))
+  bindOnDomLoaded: function() {
+    document.addEventListener("DOMContentLoaded",function(){
+      let textInput = document.getElementsByClassName("input-text-input");
+      Array.from(textInput).forEach(input => {
+        if (input.value.length) {
+          input.classList.add("has-value");
+        } else {
+          input.classList.remove("has-value");
+          input.classList.remove("no-transition");
+        }
+      });
+      
+      document.addEventListener("keyup", function(){
+        Array.from(textInput).forEach(input => {
+          if (input.value.length) {
+            input.classList.add("has-value");
+          } else {
+            input.classList.remove("has-value");
+            input.classList.remove("no-transition");
+          }
+        });
+      });
+    }); 
   },
   bindOnWindowLoaded: function () {
     window.onload = function(){
@@ -61,26 +78,6 @@ let App = {
       App.author = document.getElementById('input-row-name').getElementsByClassName('input-text-input');
       App.pages = document.getElementById('input-row-pages').getElementsByClassName('input-text-input');  
     } 
-  },
-  eventHelperOnLoad: function() {
-    let textInput = document.getElementsByClassName("input-text-input");
-    Array.from(textInput).forEach(input => {
-      if (input.value.length) {
-        input.classList.add("has-value");
-        input.classList.add("no-transition");
-      }
-    });
-  },
-  eventHelper: function() {
-    let textInput = document.getElementsByClassName("input-text-input");
-    Array.from(textInput).forEach(input => {
-      if (input.value.length) {
-        input.classList.add("has-value");
-      } else {
-        input.classList.remove("has-value");
-        input.classList.remove("no-transition");
-      }
-    });
   },
   renderNewBook: function () {
     this.addBookToLibrary(util.uuid(), this.title, this.author, this.pages);
