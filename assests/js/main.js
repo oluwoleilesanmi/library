@@ -90,8 +90,10 @@ let App = {
   },
   createBook: function(book) {
     let bookhtml = '' +
-        '<li class="book" book-id="' + book.getId() + '">' +
-          book.getAuthor() + book.getTitle()+ book.getPage() +
+        '<li class="book" book-id="' + book.getId() + '">' 
+          + '<div class= "box"></div>'+
+          book.getTitle() + '<br/>' + book.getAuthor() + ',' 
+          +" "+book.getPage()+' '+'Pages' +
           '<button class="book-del">-</button>' +
         '</li>';
     return bookhtml;
