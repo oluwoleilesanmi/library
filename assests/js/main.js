@@ -17,8 +17,8 @@ Book.prototype.getId = function() {
     return this.id;
 }
 
-var util = {
-  uuid: function () {
+let util = {
+	uuid: function () {
     /* https://www.reddit.com/r/learnprogramming/
     comments/7ovgad/using_bitwise_to_generate_a_uuid/ */
     let i, random;
@@ -30,6 +30,7 @@ var util = {
     }
     return uuid;
   },
+  
   store: function(namespace, data) {
     if (arguments.length > 1) {
       return localStorage.setItem(namespace, JSON.stringify(data));
@@ -37,6 +38,25 @@ var util = {
       let store = localStorage.getItem(namespace);
       return (store && JSON.parse(store)) || [];
     }
+  },
+  
+  validateInputs: function(author, title, pages) {
+   const message = "Can't be Empty";
+   (pages =='') ? 
+     util.validationdisplay(message, 'pages') : this.validationdisplay('', 'pages');
+   (author =='') ? 
+     util.validationdisplay(message, 'author') : this.validationdisplay('', 'author');
+   (title =='') ? 
+     util.validationdisplay(message, 'title') : this.validationdisplay('', 'title');
+  },
+  
+  validationdisplay: function(message, inputType){
+    if (inputType === 'author') 
+      document.getElementById('author-splash').innerHTML = message
+    if (inputType === 'title') 
+      document.getElementById('title-splash').innerHTML = message
+    if (inputType === 'pages') 
+      document.getElementById('pages-splash').innerHTML = message
   }
 };
 
@@ -44,50 +64,31 @@ let App = {
   init: function () {
     this.books = util.store('books');
     this.bindOnDomLoaded();
-    this.bindOnWindowLoaded();  
+    this.bindOnWindowLoaded(); 
   },
-  bindOnDomLoaded: function() {
-    document.addEventListener("DOMContentLoaded",function(){
-      let textInput = document.getElementsByClassName("input-text-input");
-      Array.from(textInput).forEach(input => {
-        if (input.value.length) {
-          input.classList.add("has-value");
-        } else {
-          input.classList.remove("has-value");
-          input.classList.remove("no-transition");
-        }
-      });
-      
-      document.addEventListener("keyup", function(){
-        Array.from(textInput).forEach(input => {
-          if (input.value.length) {
-            input.classList.add("has-value");
-          } else {
-            input.classList.remove("has-value");
-            input.classList.remove("no-transition");
-          }
-        });
-      });
-    }); 
-  },
-  bindOnWindowLoaded: function () {
-    window.onload = function(){
-      document.querySelector(".button")
-        .addEventListener("click", App.renderNewBook.bind(App));
-      App.title = document.getElementById('input-row-author').getElementsByClassName('input-text-input');
-      App.author = document.getElementById('input-row-name').getElementsByClassName('input-text-input');
-      App.pages = document.getElementById('input-row-pages').getElementsByClassName('input-text-input');  
-    } 
-  },
+  
   renderNewBook: function () {
+    let index = 0;
+    if(this.title[index].value == '' || this.author[index].value == '' || this.pages[index].value == ''){
+      util.validateInputs(
+        this.title[index].value, this.author[index].value, this.pages[index].value);
+      return;
+    }else {
+      util.validateInputs(
+        this.title[index].value, this.author[index].value, this.pages[index].value);
+    }
     this.addBookToLibrary(util.uuid(), this.title, this.author, this.pages);
     this.render();
-  },
+    this.reset()
+	},
+  
   addBookToLibrary: function(id, title, author, pages){
-    let index = 0, 
-        book = new Book(id, title[index].value, author[index].value, pages[index].value);
+    let index = 0;
+    let book = new Book(
+      id, title[index].value, author[index].value, pages[index].value);
     this.books.push(book);
   },
+  
   createBook: function(book) {
     let bookhtml = '' +
         '<li class="book" book-id="' + book.getId() + '">' 
@@ -98,6 +99,7 @@ let App = {
         '</li>';
     return bookhtml;
   },
+  
   findBook: function(e) {
     let thisbook,
         id = e.target.parentNode.getAttribute('book-id');
@@ -108,12 +110,14 @@ let App = {
     });
     return thisbook;
   },
+  
   deleteBook: function(e) {
     let task = this.findBook(e),
         taskIndex = this.books.indexOf(task);
     this.books.splice(taskIndex, 1);
     this.render();
   },
+  
   bindDelEvent: function(){
     if(document.getElementsByClassName("book-del")){
       let arrButtons = document.getElementsByClassName("book-del");
@@ -122,6 +126,7 @@ let App = {
       });
     }
   },
+  
   render: function() {
     let htmlList = ' ';
     this.books.forEach(function(book) {
@@ -129,7 +134,56 @@ let App = {
     }, this);
     document.getElementById('book-list').innerHTML = htmlList;
     App.bindDelEvent(); 
-  }   
+  },
+  
+  reset: function(){
+    const index = 0;
+    document.getElementById('input-row-author')
+      .getElementsByClassName('input-text-input')[index].value = '';
+    document.getElementById('input-row-name')
+      .getElementsByClassName('input-text-input')[index].value = '';
+    document.getElementById('input-row-pages')
+      .getElementsByClassName('input-text-input')[index].value= '';  
+    this.render()
+  },
+  
+  bindOnWindowLoaded: function (){
+    window.onload = function(){
+      document.querySelector(".button")
+        .addEventListener("click", App.renderNewBook.bind(App));
+      App.title = document.getElementById('input-row-author')
+        .getElementsByClassName('input-text-input');
+      App.author = document.getElementById('input-row-name')
+        .getElementsByClassName('input-text-input');
+      App.pages = document.getElementById('input-row-pages')
+        .getElementsByClassName('input-text-input');  
+    } 
+  },
+  
+  bindOnDomLoaded: function() {
+    document.addEventListener("DOMContentLoaded",function(){
+      let textInput = this.getElementsByClassName("input-text-input");
+      Array.from(textInput).forEach(input => {
+        if (input.value.length) {
+          input.classList.add("has-value");
+        } else {
+          input.classList.remove("has-value");
+          input.classList.remove("no-transition");
+        }
+      });
+      
+      this.addEventListener("keyup", function(){
+        Array.from(textInput).forEach(input => {
+          if (input.value.length) {
+            input.classList.add("has-value");
+          } else {
+            input.classList.remove("has-value");
+            input.classList.remove("no-transition");
+          }
+        });
+      });
+    }); 
+  } 
 };
-App.init();
 
+App.init();
