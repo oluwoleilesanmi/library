@@ -69,7 +69,7 @@ let App = {
   
   renderNewBook: function () {
     let index = 0;
-    if(this.title[index].value == '' || this.author[index].value == '' || this.pages[index].value == ''){
+    if(this.title[index].value === '' || this.author[index].value === '' || this.pages[index].value === ''){
       util.validateInputs(
         this.title[index].value, this.author[index].value, this.pages[index].value);
       return;
