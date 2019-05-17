@@ -24,13 +24,14 @@ body {
     "https://res.cloudinary.com/drw0cxkwk/image/upload/v1556808686/background-3246124_1920_scnnsw.jpg");
   background-size:200px 200px;
 }
-
-.box {
+input[type="checkbox"]{
+  width: 30px; 
+  height: 30px;
+}
+.toggler {
   position: absolute;
   left: 5px;
-  top: 12px;
-  width: 25px;
-  height: 30px;
+  top: 9px;
   border: 1px solid #3a3a3a;
   background-color: #B1B1B1;
 }

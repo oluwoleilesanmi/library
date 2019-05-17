@@ -1,11 +1,18 @@
-function Book(id, author, title, pages) {
+function Book(id, author, title, pages, read) {
   this.id = id;
+  this.read = read;
   this.author = author;
   this.title = title;
   this.pages = pages;
 }
 Book.prototype.getAuthor = function () {
    return this.author;
+}
+Book.prototype.getRead = function () {
+   return this.read;
+}
+Book.prototype.setRead = function (bol) {
+   return this.read = bol;
 }
 Book.prototype.getTitle = function() {
     return this.title;
@@ -83,16 +90,18 @@ let App = {
 	},
   
   addBookToLibrary: function(id, title, author, pages){
-    let index = 0;
-    let book = new Book(
-      id, title[index].value, author[index].value, pages[index].value);
+    let index = 0,
+        book = new Book(
+            id, title[index].value, author[index].value, pages[index].value, false);
     this.books.push(book);
   },
   
   createBook: function(book) {
+    var isChecked = '';
+    if (book.getRead()) isChecked = 'checked';
     let bookhtml = '' +
         '<li class="book" book-id="' + book.getId() + '">' 
-          + '<div class= "box"></div>'+
+          + '<input class="toggler" type="checkbox" ' + isChecked + ' />'+
           book.getTitle() + '<br/>' + book.getAuthor() + ',' 
           +" "+book.getPage()+' '+'Pages' +
           '<button class="book-del">-</button>' +
@@ -112,9 +121,9 @@ let App = {
   },
   
   deleteBook: function(e) {
-    let task = this.findBook(e),
-        taskIndex = this.books.indexOf(task);
-    this.books.splice(taskIndex, 1);
+    let book = this.findBook(e),
+        bookIndex = this.books.indexOf(book);
+    this.books.splice(bookIndex, 1);
     this.render();
   },
   
@@ -126,14 +135,25 @@ let App = {
       });
     }
   },
+    
+  bindReadEvent: function(){
+    if(document.getElementsByClassName("toggler")){
+      let arrButtons = document.getElementsByClassName("toggler");
+      Array.from(arrButtons).forEach(readButton => {
+        readButton.addEventListener('click', App.toggleRead.bind(App));
+      });
+    }
+  },
   
   render: function() {
     let htmlList = ' ';
     this.books.forEach(function(book) {
       htmlList += this.createBook(book);
     }, this);
+    
     document.getElementById('book-list').innerHTML = htmlList;
     App.bindDelEvent(); 
+    App.bindReadEvent();
   },
   
   reset: function(){
@@ -183,7 +203,13 @@ let App = {
         });
       });
     }); 
-  } 
+  },
+  
+  toggleRead: function(el){
+    let book = this.findBook(el);
+    let bol = book.getRead() 
+    book.setRead(!bol);
+  }
 };
 
 App.init();
