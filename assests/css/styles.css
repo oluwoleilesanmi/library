@@ -1,16 +1,17 @@
 #input-row-author,
-#input-row-name, 
-#input-row-pages{
+#input-row-name,
+#input-row-pages,
+#input-row-pages {
   margin-top: 15px;
   margin-bottom: 20px;
 }
 #author-splash,
 #title-splash,
-#pages-splash{
-  color: #583A7E;
+#pages-splash {
+  color: #583a7e;
   font-size: 12px;
 }
-#book-list{
+#book-list {
   list-style: none;
   padding-left: 10px;
 }
@@ -20,42 +21,26 @@ body {
   color: #3a3a3a;
   font-size: 14px;
   margin: 0;
-  background-image: url(
-    "https://res.cloudinary.com/drw0cxkwk/image/upload/v1556808686/background-3246124_1920_scnnsw.jpg");
-  background-size:200px 200px;
+  background-image: url("https://res.cloudinary.com/drw0cxkwk/image/upload/v1556808686/background-3246124_1920_scnnsw.jpg");
+  background-size: 200px 200px;
 }
-input[type="checkbox"]{
-  width: 30px; 
+input[type="checkbox"] {
+  width: 30px;
   height: 30px;
-}
-.toggler {
-  position: absolute;
-  left: 5px;
-  top: 9px;
-  border: 1px solid #3a3a3a;
-  background-color: #B1B1B1;
-}
-.book-del {
-  position: absolute;
-  right: 5px;
-  top: 20px;
-  color: #fff;
-  border: none;
-  background-color: #B3A1A1;
-  cursor: pointer;
-  outline: none;
 }
 .book {
   position: relative;
   padding-right: 30px;
   padding-left: 60px;
-  border-bottom: 1px solid #D2DFEC;
+  border-bottom: 1px solid #d2dfec;
   background: #fff;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.container{
-  margin: 10 auto;
+.container {
+  margin-left: 17%;
+  margin-right: 10%;
+  margin-top: 3%;
 }
 .book-form {
   background: #fff;
@@ -91,7 +76,7 @@ input[type="checkbox"]{
   top: 1px;
   box-shadow: 0px 0px 2px #365627;
 }
-.input-text{
+.input-text {
   height: 48px;
   width: 100%;
   font-size: 16px;

@@ -1,187 +1,127 @@
-function Book(id, author, title, pages, read) {
-  this.id = id;
-  this.read = read;
+function Book(author, title, pages, status) {
+  this.status = status;
   this.author = author;
   this.title = title;
   this.pages = pages;
 }
-Book.prototype.getAuthor = function () {
-   return this.author;
-}
-Book.prototype.getRead = function () {
-   return this.read;
-}
-Book.prototype.setRead = function (bol) {
-   return this.read = bol;
-}
-Book.prototype.getTitle = function() {
-    return this.title;
-}
-Book.prototype.getPage = function() {
-    return this.pages;
-}
-Book.prototype.getId = function() {
-    return this.id;
-}
+Book.prototype.getAuthor = function() { return this.author;};
+Book.prototype.getStatus = function() { return this.status;};
+Book.prototype.getTitle = function() { return this.title;};
+Book.prototype.getPage = function() { return this.pages;};
 
 let util = {
-	uuid: function () {
-    /* https://www.reddit.com/r/learnprogramming/
-    comments/7ovgad/using_bitwise_to_generate_a_uuid/ */
-    let i, random;
-		let uuid = '';
-		for (i = 0; i < 32; i++) {
-      random = Math.random() * 16 | 0;
-      if (i === 8 || i === 12 || i === 16 || i === 20) uuid += '-';
-			uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
-    }
-    return uuid;
+  store: function() {
+    return [];
   },
-  
-  store: function(namespace, data) {
-    if (arguments.length > 1) {
-      return localStorage.setItem(namespace, JSON.stringify(data));
-    } else {
-      let store = localStorage.getItem(namespace);
-      return (store && JSON.parse(store)) || [];
-    }
-  },
-  
+
   validateInputs: function(author, title, pages) {
-   const message = "Can't be Empty";
-   (pages =='') ? 
-     util.validationdisplay(message, 'pages') : this.validationdisplay('', 'pages');
-   (author =='') ? 
-     util.validationdisplay(message, 'author') : this.validationdisplay('', 'author');
-   (title =='') ? 
-     util.validationdisplay(message, 'title') : this.validationdisplay('', 'title');
+    const message = "Can't be Empty";
+    pages == ""  ? util.validationdisplay(message, "pages") : this.validationdisplay("", "pages");
+    author == "" ? util.validationdisplay(message, "author") : this.validationdisplay("", "author");
+    title == ""  ? util.validationdisplay(message, "title") : this.validationdisplay("", "title");
   },
-  
-  validationdisplay: function(message, inputType){
-    if (inputType === 'author') 
-      document.getElementById('author-splash').innerHTML = message
-    if (inputType === 'title') 
-      document.getElementById('title-splash').innerHTML = message
-    if (inputType === 'pages') 
-      document.getElementById('pages-splash').innerHTML = message
+
+  validationdisplay: function(message, inputType) {
+    if (inputType === "author")
+      document.getElementById("author-splash").innerHTML = message;
+    if (inputType === "title")
+      document.getElementById("title-splash").innerHTML = message;
+    if (inputType === "pages")
+      document.getElementById("pages-splash").innerHTML = message;
   }
 };
 
 let App = {
-  init: function () {
-    this.books = util.store('books');
+  init: function() {
+    this.books = util.store();
     this.bindOnDomLoaded();
-    this.bindOnWindowLoaded(); 
+    this.bindOnWindowLoaded();
   },
-  
-  renderNewBook: function () {
-    let index = 0;
-    if(this.title[index].value === '' || this.author[index].value === '' || this.pages[index].value === ''){
-      util.validateInputs(
-        this.title[index].value, this.author[index].value, this.pages[index].value);
+
+  renderNewBook: function() {
+    const index = 0;
+    if (this.title[index].value === "" || this.author[index].value === "" || this.pages[index].value === "") {
+      util.validateInputs( this.title[index].value, this.author[index].value, this.pages[index].value);
       return;
-    }else {
-      util.validateInputs(
-        this.title[index].value, this.author[index].value, this.pages[index].value);
+    } else {
+      util.validateInputs( this.title[index].value, this.author[index].value, this.pages[index].value);
     }
-    this.addBookToLibrary(util.uuid(), this.title, this.author, this.pages);
+    this.addBookToLibrary(this.title, this.author, this.pages, this.status);
     this.render();
-    this.reset()
-	},
-  
-  addBookToLibrary: function(id, title, author, pages){
-    let index = 0,
-        book = new Book(
-            id, title[index].value, author[index].value, pages[index].value, false);
+    this.reset();
+  },
+
+  deleteRow: function(row) {
+    let index = row.parentNode.parentNode.rowIndex;
+    this.deleteBook(index);
+    document.getElementById("book-list").deleteRow(index);
+  },
+
+  getSelectedOption: function(select) {
+    let option;
+    for (let i = 0; i < select.options.length; i++) {
+      option = select.options[i];
+      if (option.selected === true) {
+        break;
+      }
+    }
+    return option;
+  },
+
+  addBookToLibrary: function(title, author, pages, status) {
+    let index = 0, value = this.getSelectedOption(status[index]).value,
+        book = new Book( title[index].value, author[index].value, pages[index].value, value);
     this.books.push(book);
   },
-  
-  createBook: function(book) {
-    var isChecked = '';
-    if (book.getRead()) isChecked = 'checked';
-    let bookhtml = '' +
-        '<li class="book" book-id="' + book.getId() + '">' 
-          + '<input class="toggler" type="checkbox" ' + isChecked + ' />'+
-          book.getTitle() + '<br/>' + book.getAuthor() + ',' 
-          +" "+book.getPage()+' '+'Pages' +
-          '<button class="book-del">-</button>' +
-        '</li>';
-    return bookhtml;
-  },
-  
-  findBook: function(e) {
-    let thisbook,
-        id = e.target.parentNode.getAttribute('book-id');
-    this.books.forEach(function(book){
-      if (book.getId() === id) {
-        thisbook = book;
-      }
-    });
-    return thisbook;
-  },
-  
-  deleteBook: function(e) {
-    let book = this.findBook(e),
-        bookIndex = this.books.indexOf(book);
+
+  deleteBook: function(index) {
+    let bookIndex = index - 1;
     this.books.splice(bookIndex, 1);
-    this.render();
   },
-  
-  bindDelEvent: function(){
-    if(document.getElementsByClassName("book-del")){
-      let arrButtons = document.getElementsByClassName("book-del");
-      Array.from(arrButtons).forEach(delButton => {
-        delButton.addEventListener('click', App.deleteBook.bind(App));
-      });
-    }
-  },
-    
-  bindReadEvent: function(){
-    if(document.getElementsByClassName("toggler")){
-      let arrButtons = document.getElementsByClassName("toggler");
-      Array.from(arrButtons).forEach(readButton => {
-        readButton.addEventListener('click', App.toggleRead.bind(App));
-      });
-    }
-  },
-  
+
   render: function() {
-    let htmlList = ' ';
+    let htmlList = null;
     this.books.forEach(function(book) {
-      htmlList += this.createBook(book);
+      htmlList = this.createBook(book);
     }, this);
-    
-    document.getElementById('book-list').innerHTML = htmlList;
-    App.bindDelEvent(); 
-    App.bindReadEvent();
+    document.getElementById("book-list").appendChild(htmlList);
   },
-  
-  reset: function(){
+
+  reset: function() {
     const index = 0;
-    document.getElementById('input-row-author')
-      .getElementsByClassName('input-text-input')[index].value = '';
-    document.getElementById('input-row-name')
-      .getElementsByClassName('input-text-input')[index].value = '';
-    document.getElementById('input-row-pages')
-      .getElementsByClassName('input-text-input')[index].value= '';  
-    this.render()
+    document
+      .getElementById("input-row-author")
+      .getElementsByClassName("input-text-input")[index].value = "";
+    document
+      .getElementById("input-row-name")
+      .getElementsByClassName("input-text-input")[index].value = "";
+    document
+      .getElementById("input-row-pages")
+      .getElementsByClassName("input-text-input")[index].value = "";
   },
-  
-  bindOnWindowLoaded: function (){
-    window.onload = function(){
-      document.querySelector(".button")
+
+  bindOnWindowLoaded: function() {
+    window.onload = function() {
+      document
+        .querySelector(".button")
         .addEventListener("click", App.renderNewBook.bind(App));
-      App.title = document.getElementById('input-row-author')
-        .getElementsByClassName('input-text-input');
-      App.author = document.getElementById('input-row-name')
-        .getElementsByClassName('input-text-input');
-      App.pages = document.getElementById('input-row-pages')
-        .getElementsByClassName('input-text-input');  
-    } 
+      App.title = document
+        .getElementById("input-row-author")
+        .getElementsByClassName("input-text-input");
+      App.author = document
+        .getElementById("input-row-name")
+        .getElementsByClassName("input-text-input");
+      App.pages = document
+        .getElementById("input-row-pages")
+        .getElementsByClassName("input-text-input");
+      App.status = document
+        .getElementById("input-row-status")
+        .getElementsByClassName("input-text-input");
+    };
   },
-  
+
   bindOnDomLoaded: function() {
-    document.addEventListener("DOMContentLoaded",function(){
+    document.addEventListener("DOMContentLoaded", function() {
       let textInput = this.getElementsByClassName("input-text-input");
       Array.from(textInput).forEach(input => {
         if (input.value.length) {
@@ -191,8 +131,8 @@ let App = {
           input.classList.remove("no-transition");
         }
       });
-      
-      this.addEventListener("keyup", function(){
+
+      this.addEventListener("keyup", function() {
         Array.from(textInput).forEach(input => {
           if (input.value.length) {
             input.classList.add("has-value");
@@ -202,13 +142,45 @@ let App = {
           }
         });
       });
-    }); 
+    });
   },
-  
-  toggleRead: function(el){
-    let book = this.findBook(el);
-    let bol = book.getRead() 
-    book.setRead(!bol);
+
+  createBook: function(book) {
+    const row = document.createElement("tr");
+
+    const firsttd = document.createElement("td");
+    firsttd.innerText = book.getAuthor();
+    const secondtd = document.createElement("td");
+    secondtd.innerText = book.getTitle();
+    const thirdtd = document.createElement("td");
+    thirdtd.innerText = book.getPage();
+    const fourthtd = document.createElement("td");
+    const fifthtd = document.createElement("td");
+
+    const firstoption = document.createElement("option");
+    firstoption.innerText = "Read";
+    const secondoption = document.createElement("option");
+    secondoption.innerText = "Unread";
+      
+    const sel = document.createElement("select");
+
+    const btn = document.createElement("button");
+    btn.innerText = "Delete Book!";
+    btn.setAttribute("onclick", "App.deleteRow(this)");
+
+    sel.appendChild(firstoption);
+    sel.appendChild(secondoption);
+    fifthtd.appendChild(btn);
+    fourthtd.appendChild(sel);
+
+    row.appendChild(firsttd);
+    row.appendChild(secondtd);
+    row.appendChild(thirdtd);
+    row.appendChild(fourthtd);
+    row.appendChild(fifthtd);
+
+    sel.options[book.getStatus()].selected = true;
+    return row;
   }
 };
 
