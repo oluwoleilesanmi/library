@@ -9,16 +9,16 @@ Book.prototype.getStatus = function() { return this.status;};
 Book.prototype.getTitle = function() { return this.title;};
 Book.prototype.getPage = function() { return this.pages;};
 
-let util = {
+const util = {
   store: function() {
     return [];
   },
 
   validateInputs: function(author, title, pages) {
     const message = "Can't be Empty";
-    pages == ""  ? util.validationdisplay(message, "pages") : this.validationdisplay("", "pages");
-    author == "" ? util.validationdisplay(message, "author") : this.validationdisplay("", "author");
-    title == ""  ? util.validationdisplay(message, "title") : this.validationdisplay("", "title");
+    pages === ""  ? this.validationdisplay(message, "pages") : this.validationdisplay("", "pages");
+    author === "" ? this.validationdisplay(message, "author") : this.validationdisplay("", "author");
+    title === ""  ? this.validationdisplay(message, "title") : this.validationdisplay("", "title");
   },
 
   validationdisplay: function(message, inputType) {
@@ -31,7 +31,7 @@ let util = {
   }
 };
 
-let App = {
+const App = {
   init: function() {
     this.books = util.store();
     this.bindOnDomLoaded();
