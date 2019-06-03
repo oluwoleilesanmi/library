@@ -1,11 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Library</title>
+    <link rel="stylesheet" type="text/css" href="./assests/css/styles.css" />
+    <script type="text/javascript" src="./assests/js/main.js"></script>
   </head>
   <body>
-    <header></header>
-    <footer></footer>
+    <div class="book-form">
+      <div class="form-title">Enter a book</div>
+      <div id="input-row-author">
+        <div class="input-text">
+          <input class="input-text-input" type="text" value="JK. ROWLING" />
+          <label class="input-text-label">Author</label>
+          <div class="input-text-placeholder">type-email-here</div>
+          <div class="input-text-line"></div>
+          <div class="input-text-line-focus"></div>
+        </div>
+        <div id="author-splash"></div>
+      </div>
+      <div id="input-row-name">
+        <div class="input-text">
+          <input
+            class="input-text-input"
+            type="text"
+            value="Harry Potter. The Philosopher's Stone"
+          />
+          <label class="input-text-label">Title</label>
+          <div class="input-text-placeholder">Type title</div>
+          <div class="input-text-line"></div>
+          <div class="input-text-line-focus"></div>
+        </div>
+        <div id="title-splash"></div>
+      </div>
+      <div id="input-row-pages">
+        <div class="input-text">
+          <input class="input-text-input" type="number" value="522" />
+          <label class="input-text-label">Page Count</label>
+          <div class="input-text-placeholder">Type page count</div>
+          <div class="input-text-line"></div>
+          <div class="input-text-line-focus"></div>
+        </div>
+        <div id="pages-splash"></div>
+      </div>
+      <div id="input-row-status">
+        <div class="input-text">
+          <div>Read status:</div>
+          <select class="input-text-input">
+            <option value="0">Read</option>
+            <option value="1">Unread</option>
+          </select>
+        </div>
+        <div id="pages-splash"></div>
+      </div>
+      <p class="button-container">
+        <a class="button">Store Book!</a>
+      </p>
+    </div>
+    <section class="container">
+      <table width="850px" border="1" id="book-list">
+        <thead>
+          <th>Author</th>
+          <th>Title</th>
+          <th>Page Count</th>
+          <th>Status</th>
+          <th>Action</th>
+        </thead>
+      </table>
+    </section>
+
+    <script></script>
   </body>
 </html>

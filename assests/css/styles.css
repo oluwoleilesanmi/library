@@ -1,0 +1,140 @@
+#input-row-author,
+#input-row-name,
+#input-row-pages,
+#input-row-pages {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+#author-splash,
+#title-splash,
+#pages-splash {
+  color: #583a7e;
+  font-size: 12px;
+}
+#book-list {
+  list-style: none;
+  padding-left: 10px;
+}
+
+body {
+  font-family: "arial", sans-serif;
+  color: #3a3a3a;
+  font-size: 14px;
+  margin: 0;
+  background-image: url("https://res.cloudinary.com/drw0cxkwk/image/upload/v1556808686/background-3246124_1920_scnnsw.jpg");
+  background-size: 200px 200px;
+}
+input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+}
+.book {
+  position: relative;
+  padding-right: 30px;
+  padding-left: 60px;
+  border-bottom: 1px solid #d2dfec;
+  background: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.container {
+  margin-left: 17%;
+  margin-right: 10%;
+  margin-top: 3%;
+}
+.book-form {
+  background: #fff;
+  padding: 15px;
+  width: 350px;
+  margin: 40px auto 0;
+  border-radius: 5px;
+  box-shadow: 0px 1px 2px #a9a9a9;
+}
+.form-title {
+  font-size: 22px;
+  margin-top: 5px;
+}
+.button-container {
+  margin: 40px 0 10px;
+  text-align: center;
+}
+.button {
+  border-radius: 3px;
+  border: none;
+  padding: 10px;
+  box-shadow: 0px 1px 2px #365627;
+  outline: none;
+  cursor: pointer;
+  background: #57b72a;
+  color: #fff;
+}
+.button:hover {
+  background: #62cc31;
+}
+.button:active {
+  position: relative;
+  top: 1px;
+  box-shadow: 0px 0px 2px #365627;
+}
+.input-text {
+  height: 48px;
+  width: 100%;
+  font-size: 16px;
+  position: relative;
+}
+.input-text-input {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: inherit;
+  position: absolute;
+  z-index: 1;
+  margin-top: 5px;
+}
+.input-text-label {
+  position: absolute;
+  top: 22px;
+  color: #b1b1b1;
+  cursor: text;
+  transform-origin: left top 0px;
+  transition: all 200ms ease-in-out 0ms;
+}
+.input-text-line {
+  bottom: 0px;
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid rgb(224, 224, 224);
+}
+.input-text-input.has-value ~ .input-text-label,
+.input-text-input:focus ~ .input-text-label {
+  transform: scale(0.75) translate(1px, -28px);
+}
+.input-text-input:focus ~ .input-text-label {
+  color: rgb(35, 167, 253);
+}
+.input-text-placeholder {
+  position: absolute;
+  bottom: 8px;
+  color: #b1b1b1;
+  opacity: 0;
+  transition: all 200ms ease-in-out 0ms;
+}
+.input-text-line-focus {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  border-bottom: 2px solid rgb(35, 167, 253);
+  transition: all 200ms ease-in-out 0ms;
+  transform: scaleX(0);
+}
+.input-text-input:focus ~ .input-text-line-focus {
+  transform: scaleX(1);
+}
+.input-text-input.has-value ~ .input-text-placeholder {
+  opacity: 0;
+}
+.input-text-input.no-transition ~ .input-text-label {
+  transition: none;
+}
